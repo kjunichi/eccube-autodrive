@@ -38,22 +38,23 @@ function mailProc() {
         parseMail(JSON.parse(body));
     })
 }
+const nightmare = Nightmare({
+    show: false,
+    switches: {
+        'ignore-certificate-errors': null
+    }
+});
 
 function preRegist(num) {
     console.log(`start num = ${num}`);
-    const email = `test002${num}@nergal.lan`;
+    const email = `test2${num}@nergal.lan`;
 
-    const nightmare = Nightmare({
-        show: false,
-        switches: {
-            'ignore-certificate-errors': null
-        }
-    });
+
 
     nightmare
         .goto(`https://${HOST}:8443/`)
         .click(".member_link li a[href*=\"/entry\"]")
-        .wait(1)
+        .wait(400)
         .type("#entry_name_name01", `試験`)
         .type("#entry_name_name02", `太郎`)
         .type("#entry_kana_kana01", "カタカナ")
@@ -61,7 +62,7 @@ function preRegist(num) {
         .type("#zip01", "164")
         .type("#zip02", "0001")
         .click("#zip-search")
-        .wait(1)
+        .wait(400)
         .type("#addr02", "試験1-2-3")
         .type("#entry_tel_tel01", "03")
         .type("#entry_tel_tel02", "1234")
@@ -71,17 +72,16 @@ function preRegist(num) {
         .type("#entry_password_first", "abcde123")
         .type("#entry_password_second", "abcde123")
         .click("button.btn-primary")
-        .wait(1)
+        .wait(400)
         //.pdf("cube.pdf")
         .click("button.btn-primary")
-        .wait(1)
+        .wait(1000)
         .evaluate(() => {
             return document.body.innerHTML;
             //const e1 = document.querySelectorAll('.member_link li');
 
             //return e1['0'].href;
         })
-        .end()
         .then((result) => {
             //console.log(result);
             console.log(`${num} done.`);
@@ -93,8 +93,16 @@ function preRegist(num) {
         })
         .catch((error) => {
             console.error('Search failed:', error);
+                        //console.log(result);
+            
+            if (num > 0) {
+                preRegist(num - 1);
+            } else {
+                mailProc();
+            }
+        
         });
 }
 
-preRegist(1000);
+preRegist(7099);
 //mailProc();
