@@ -40,6 +40,7 @@ function mailProc() {
 }
 const nightmare = Nightmare({
     show: false,
+    typeInterval: 10,
     switches: {
         'ignore-certificate-errors': null
     }
@@ -104,5 +105,5 @@ function preRegist(num) {
         });
 }
 
-preRegist(7099);
+preRegist(5506);
 //mailProc();
