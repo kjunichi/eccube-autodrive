@@ -150,7 +150,7 @@ if (cluster.isMaster) {
         waitTimeout: 10000,
         loadTimeout:10000,
         executionTimeout: 10000,
-        typeInterval: 10,
+        typeInterval: 1,
         switches: {
             'ignore-certificate-errors': null
         }
@@ -174,7 +174,7 @@ if (cluster.isMaster) {
             .type("#zip02", "0001")
             //.wait(300)
             .click("#zip-search")
-            .wait(200)
+            .wait(800)
             .type("#addr02", "試験1-2-3")
             .type("#entry_tel_tel01", "03")
             .type("#entry_tel_tel02", "1234")
@@ -185,16 +185,10 @@ if (cluster.isMaster) {
             .type("#entry_password_second", "abcde123")
             .click("button.btn-primary")
             //.wait("button.btn-primary")
-            .wait(300)
+            .wait(800)
             //.pdf("cube.pdf")
             .click("button.btn-primary")
-            .wait(300)
-            .evaluate(() => {
-                return document.body.innerHTML;
-                //const e1 = document.querySelectorAll('.member_link li');
-
-                //return e1['0'].href;
-            })
+            .wait(800)
             .then((result) => {
                 //console.log(result);
                 console.log(`${process.argv.slice(2)} : ${num} done.`);
